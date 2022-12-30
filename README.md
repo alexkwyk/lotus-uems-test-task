@@ -1,4 +1,3 @@
-# Test_React_Trade
 Задача:
 -------
 
