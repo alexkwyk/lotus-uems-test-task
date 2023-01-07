@@ -3,6 +3,6 @@ make install:
 make start:
 	 npm run start & node ./server.js
 make build:
-	npm run build & node ./server.js
+	npm run build
 make start-server:
 	npx nodemon ./server.js
