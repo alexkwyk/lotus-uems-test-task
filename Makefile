@@ -1,8 +1,8 @@
 make install:
 	npm ci
 make start:
-	npx nodemon ./server.js | npm start
+	 npm run start & npx nodemon ./server.js
 make build:
-	npx nodemon ./server.js | npm build
+	npm run build & npx nodemon ./server.js
 make start-server:
 	npx nodemon ./server.js
