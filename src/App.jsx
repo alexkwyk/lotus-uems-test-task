@@ -1,12 +1,9 @@
-import TableComponent from './components/TableComponent.jsx';
+import React from 'react';
+import TradeRoom from "./components/TradeRoom.jsx";
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <TableComponent />
-      </header>
-    </div>
+    <TradeRoom />
   );
 }
 

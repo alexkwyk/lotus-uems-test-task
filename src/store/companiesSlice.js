@@ -5,7 +5,7 @@ const companiesAdapter = createEntityAdapter();
 
 const companiesSlice = createSlice({
   name: 'companies',
-  initialState: companiesAdapter.getInitialState({ activeCompanyId: 3 }),
+  initialState: companiesAdapter.getInitialState({ activeCompanyId: 1 }),
   reducers: {
     setActiveCompanyId: ((state,{ payload }) => {
       state.activeCompanyId = payload;

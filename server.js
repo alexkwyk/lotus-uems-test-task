@@ -5,7 +5,7 @@ import http from 'http'
 import path from 'path';
 import { Server } from 'socket.io';
 
-import companiesData from './src/fixtures/companiesData.js';
+import companiesData from './src/assets/fixtures/companiesData.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -13,30 +13,48 @@ const io = new Server(server);
 
 app.use(express.static(path.join(process.cwd(), 'public')));
 
-
 const stepTime = 120; // Время на ход
 
 const state = {
   currentTime: stepTime,
+  activeCompanyId: 1,
   companies: companiesData,
 };
 
-const startTimer = (currentTime) => setTimeout(() => {
-  state.currentTime = currentTime;
-  io.emit('sendTime', currentTime);
-  if (currentTime === 0) {
-    startTimer(stepTime);
+const startTimer = () => setTimeout(() => {
+  io.emit('sendTime', state.currentTime);
+  if (state.currentTime === 0) {
+    state.currentTime = stepTime;
+    switchActiveCompany();
   } else {
-    startTimer(currentTime - 1);
+    state.currentTime -= 1;
   }
+  startTimer();
 }, 1000);
-startTimer(stepTime);
+
+startTimer();
 
 io.on('connection', (socket) => {
-  socket.on('getTime', () => {
-    socket.emit('sendTime', state.currentTime);
+  socket.emit('sendTime', state.currentTime);
+  socket.emit('setActiveCompany', state.activeCompanyId);
+  socket.on('switchActiveCompany', () => {
+    switchActiveCompany();
+    state.currentTime = stepTime;
+    socket.emit('setActiveCompany', state.activeCompanyId);
   })
 });
+
+const switchActiveCompany = () => {
+  const { companies, activeCompanyId } = state;
+  const nextCompanyId = (
+    (companies.at(-1).id === activeCompanyId)
+      ? companies[0].id : activeCompanyId + 1);
+  state.activeCompanyId = nextCompanyId;
+  io.emit('setActiveCompany', nextCompanyId);
+};
+
+
+
 app.get('/', (_req, res) => res.sendFile(`${path.join(process.cwd())}/public/index.html`));
 
 app.get('/api/data', (_req, res) => {

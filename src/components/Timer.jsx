@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useSocket } from '../contexts';
+import React, {useEffect, useState} from 'react';
+import {useSocket} from '../contexts/index';
+import hourglass from '../assets/hourglass.svg';
 
-const Timer = () => {
-  const [currentTime, setCurrentTime] = useState(0);
-  const socket = useSocket()
+export default function Timer() {
+  const [currentTime, setCurrentTime] = useState(null);
+  const socket = useSocket();
   useEffect(() => {
     socket.subscribeTimer(setCurrentTime);
-  }, []);
+  }, [socket]);
 
-  return (<div className="bg-danger bg-opacity-25 align-middle" style={{height: '3rem'}}>
-    <span>{currentTime}</span>
-    </div>);
+  return (
+    currentTime &&
+    (<div className="py-3 text-danger text-center bg-danger bg-opacity-10">
+      <span className="fw-bold">{currentTime}</span>
+      <img src={hourglass} className="float-end p-1" alt="" />
+    </div>)
+  );
 }
-
-export default Timer;

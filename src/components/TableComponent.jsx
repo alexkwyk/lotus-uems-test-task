@@ -1,11 +1,15 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Table } from 'react-bootstrap';
-import Timer from './Timer';
-import fetchData from '../slices/fetchThunk.js';
-import { selectors, getActiveCompanyId, setActiveCompanyId } from '../slices/companiesSlice.js'
+import { Table, Spinner } from 'react-bootstrap';
 
-const TableComponent = () => {
+import fetchData from '../store/fetchThunk';
+import { selectors, getActiveCompanyId } from '../store/companiesSlice';
+
+import TableHeader from "./TableHeader.jsx";
+import TableBody from "./TableBody.jsx";
+
+
+export default function TableComponent() {
   const dispatch = useDispatch();
   const [pageLoaded, setPageLoaded] = useState(false);
 
@@ -23,38 +27,17 @@ const TableComponent = () => {
   const companiesInfo = useSelector(selectors.selectAll);
   const activeCompanyId = useSelector(getActiveCompanyId);
 
-  const changeActiveCompany = () => {
-    if (companiesInfo.at(-1).id === activeCompanyId) {
-      setActiveCompanyId(companiesInfo[0].id);
-    } else {
-      setActiveCompanyId(activeCompanyId + 1)
-    }
-  };
-
-  return (
+  return (pageLoaded ? (
     <Table striped>
-      <thead>
-        <tr>
-          {companiesInfo.map((item) => (
-            <td key={item.id} className="text-center border-0">
-              {item.id === activeCompanyId ? <Timer /> : ''}
-            </td>
-          ))}
-        </tr>
-        <tr>
-          {companiesInfo.map((item, index) => (
-            <td key={item.id} className="text-center text-uppercase font-monospace text-primary">
-              <span className="">{`Участник №${index + 1}`}</span>
-              <p className="fw-bold">{item.name}</p>
-            </td>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-
-      </tbody>
+      <TableHeader companiesInfo={companiesInfo} activeCompanyId={activeCompanyId} />
+      <TableBody companiesInfo={companiesInfo} activeCompanyId={activeCompanyId} />
     </Table>
-  )
-}
-
-export default TableComponent;
+    ) : (
+      <div className="d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    )
+  );
+};
