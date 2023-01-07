@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
 const switchActiveCompany = () => {
   const { companies, activeCompanyId } = state;
   const nextCompanyId = (
-    (companies.at(-1).id === activeCompanyId)
+    (companies[companies.length - 1].id === activeCompanyId)
       ? companies[0].id : activeCompanyId + 1);
   state.activeCompanyId = nextCompanyId;
   io.emit('setActiveCompany', nextCompanyId);
