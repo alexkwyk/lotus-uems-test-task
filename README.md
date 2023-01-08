@@ -1,4 +1,6 @@
 # [Тестовое задание для компании ЛОТУС](https://lotus-uems-test-task.onrender.com/)
+## Preview
+![Снимок экрана 2023-01-08 230138](https://user-images.githubusercontent.com/101341358/211216593-c87e0514-9c6b-421a-bb30-d93cf789e6e9.jpg)
 
 ### Задача:
 
