@@ -55,7 +55,7 @@ const switchActiveCompany = () => {
 
 
 
-app.get('/', (_req, res) => res.sendFile(`${path.join(process.cwd())}/public/index.html`));
+app.get('/', (_req, res) => res.sendFile(path.join(process.cwd()), '/build/', 'index.html'));
 
 app.get('/api/data', (_req, res) => {
   res

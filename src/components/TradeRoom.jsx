@@ -12,7 +12,7 @@ export default function TradeRoom() {
   const socket = useSocket();
   return (
     <>
-      <Button variant="primary" onClick={openModal}>
+      <Button variant="primary" onClick={openModal} className="m-5">
         Открыть комнату торгов
       </Button>
       <Modal
@@ -28,13 +28,19 @@ export default function TradeRoom() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="flex-grow-0 pb-0">
-          <span className="text-danger bg-secondary bg-opacity-10">Уважаемые участники, во время вашего хода вы можете изменить параметры торгов, указанных в таблице:</span>
+          <span className="text-danger bg-secondary bg-opacity-10">
+            Уважаемые участники, во время вашего хода вы можете изменить параметры торгов, указанных в таблице:
+          </span>
           <TableComponent/>
         </Modal.Body>
         <Modal.Footer className="justify-content-between">
-          <span>Действия:</span>
+          <span>
+            Действия:
+          </span>
           <div className="d-flex gap-1">
-            <Button variant="primary" onClick={socket.switchActiveCompany}>Следующий</Button>
+            <Button variant="primary" onClick={socket.switchActiveCompany}>
+              Следующий
+            </Button>
             <Button variant="secondary" onClick={closeModal}>
               Закрыть
             </Button>

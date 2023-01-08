@@ -33,7 +33,7 @@ export default function TableComponent() {
       <TableBody companiesInfo={companiesInfo} activeCompanyId={activeCompanyId} />
     </Table>
     ) : (
-      <div className="d-flex justify-content-center align-items-center">
+      <div className="d-flex justify-content-center align-items-center py-4">
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
         </Spinner>

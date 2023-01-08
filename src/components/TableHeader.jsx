@@ -14,7 +14,7 @@ export default function TableHeader({ companiesInfo, activeCompanyId }) {
       ))}
     </tr>
     <tr className="align-middle text-center text-uppercase font-monospace text-primary border-bottom border-2">
-      <td style={{width: "400px"}}>
+      <td className="col-3">
         <span>Параметры и требования:</span>
       </td>
       {companiesInfo.map((item, index) => (
